@@ -21,3 +21,108 @@
     <img src="images/mechon1.png" id="Enemy"; onclick="RegisterHit()" width="190%">
 </div>
 </body>
+<script>
+    var enemy = document.getElementById("Enemy");
+    var scoreElement = document.getElementById("Score")
+    var reyn = document.getElementById("Reyn")
+    var melia = document.getElementById("Melia")
+    var dunban = document.getElementById("Dunban")
+    var reynPoints = 50;
+    var reynPointEle = document.getElementById("reynPoints")
+    var meliaPoints = 200;
+    var meliaPointEle = document.getElementById("meliaPoints")
+    var dunbanPoints = 400;
+    var dunbanPointsEle = document.getElementById("dunbanPoints")
+    var score = 0;
+    var cooldown = 20;
+    var Dunban_Bought = false;
+    var Melia_Bought = false;
+    var Reyn_Bought = false;
+    var reynSound = new Sound("sounds/reyn_entrance.wav")
+    var dunbanSound = new Sound("sounds/DunbanEntrance.wav")
+    var meliaSound = new Sound("sounds/MeliaEntrance.wav")
+    var ReynCooldown = 30000
+    var MeliaCooldown = 50000
+    var DunbanCooldown = 80000
+    var backgroundMusic= new Sound("sounds/background.mp3")
+    setInterval(DunbanAttack,DunbanCooldown);
+    setInterval(MeliaAttack, MeliaCooldown);
+    setInterval(ReynAttack, ReynCooldown);
+    
+    function ReynAttack(){
+        if (Reyn_Bought == true){
+           
+           UpdateScore(reynMoves())
+       }
+
+    }
+    function MeliaAttack(){
+        if(Melia_Bought == true){
+           
+           UpdateScore(MeliaMoves())
+       }
+
+    }
+    function DunbanAttack(){
+       
+        if(Dunban_Bought==true){
+            UpdateScore(DunbanMoves())
+        }
+    } 
+    function PurchaseCharacter(chr){
+        if(chr.id == "Reyn"){
+            if(score>= reynPoints){
+                Reyn_Bought = true;
+                console.log("bought")
+                reynSound.play();
+                UpdateScore(reynPoints*-1)
+                reynPointEle.innerHTML = "xxx"
+            }
+            else{
+                alert("Not enough points")
+            }
+        }
+        if(chr.id == "Melia"){
+            if(score>= meliaPoints){
+                Melia_Bought = true;
+                UpdateScore(meliaPoints*-1)
+                meliaSound.play();
+                
+                meliaPointEle.innerHTML= "xxx"
+            }
+            else{
+                alert("Not enough points")
+            }
+        }
+        if (chr.id == "Dunban"){
+            if(score>= dunbanPoints){
+                Dunban_Bought = true;
+                dunbanSound.play();
+                UpdateScore(dunbanPoints*-1)
+                dunbanPointsEle.innerHTML = "xxx" // could replace this with a cooldown timer
+            }
+            else{
+                alert("Not enough points")
+            }
+           
+        }
+        
+    }
+    function RegisterHit(){
+        backgroundMusic.play();
+        if(enemy.className == 'HitAnimation'){
+            enemy.className= 'HitAnimationAlt'
+        }
+        else{
+            enemy.className= 'HitAnimation';
+        }
+        UpdateScore(1)
+        console.log("Hit");
+        
+    }
+    function UpdateScore(points){
+        score+= points
+        scoreElement.innerHTML = "Score: "+ score;
+
+    }
+</script>
