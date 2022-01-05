@@ -29,6 +29,9 @@ function Sound(src){
     this.stop = function(){
         this.sound.pause();
     }
+    this.volume = function(volume_N){
+        this.sound.volume = volume_N
+    }
 }
 
 function getRandomInt(max){

@@ -32,7 +32,26 @@
     <img src="images/Colony9Background.jpg" width="100%"; height = "80%">
     <div class="Content">
         <img src="images/mechon1.png" id="Enemy"; onclick="RegisterHit()" width="190%">
+        
     </div>
+    <div class = "Effects">
+        <img src = "effects/Lightning_Effect.gif" id = "lightning" style="display: none;">
+       
+    </div>
+    <div class = "Effects">
+        <img src = "effects/fire-effect.gif" id = "fire" style="margin-left: 180px; margin-top: 90px; display: none;">
+    </div>
+    <div class = "Effects">
+        <img src = "effects/Punch-effect.gif" id = "punch" style="margin-left: 120px; margin-top: 50px; display: none;">
+       
+    </div>
+    <div class = "Effects">
+        <img src = "effects/slash.gif" id = "slash" style="margin-left: 160px; margin-top:60px; display: none;">
+    </div>
+    
+    
+   
+    
   
 </div>
 </body>
@@ -56,10 +75,15 @@
     var reynSound = new Sound("sounds/reyn_entrance.wav")
     var dunbanSound = new Sound("sounds/DunbanEntrance.wav")
     var meliaSound = new Sound("sounds/MeliaEntrance.wav")
-    var ReynCooldown = 30000
+    var ReynCooldown = 5000
     var MeliaCooldown = 50000
     var DunbanCooldown = 80000
     var backgroundMusic= new Sound("sounds/background.mp3")
+    var enemyHit = new Sound("sounds/EnemyHit.mp3")
+    var fireEffect = document.getElementById("fire");
+    var lightningEffect = document.getElementById("lightning")
+    var punchEffect = document.getElementById("punch")
+    var slashEffect = document.getElementById("slash")
     setInterval(DunbanAttack,DunbanCooldown);
     setInterval(MeliaAttack, MeliaCooldown);
     setInterval(ReynAttack, ReynCooldown);
@@ -68,6 +92,12 @@
         if (Reyn_Bought == true){
            
            UpdateScore(reynMoves())
+           punchEffect.style.display = "inline"
+           setTimeout(function(){
+           punchEffect.style.display = "none"
+
+           },2000)
+          
        }
 
     }
@@ -132,7 +162,7 @@
             enemy.className= 'HitAnimation';
         }
         UpdateScore(1)
-        console.log("Hit");
+        enemyHit.play();
         
     }
     function UpdateScore(points){
@@ -141,4 +171,4 @@
 
     }
     
-</script>
+ </script>
