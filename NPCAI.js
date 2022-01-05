@@ -40,37 +40,46 @@ function getRandomInt(max){
 
 function reynMoves(){
     attack = getRandomInt(4);
+   
     switch(attack){
         case(0):
        
         bone_upper.play();
+        playPunchEffect();
         return 50;
         case(1):
        
         shield_bash.play();
+        playPunchEffect();
         return 40;
+        
         case(2):
-       
+        
         lariat.play();
+        playSlashEffect();
         return 20;
        
     }
     ReynMiss.play();
     return 0
 }
+
 function MeliaMoves(){
     attack = getRandomInt(4);
     switch(attack){
         case(1):
         Flare.play()
+        playFireEffect()
         return 120
         //ice move
         case(2):
         Thunder.play()
+        playLightningEffect();
         return 80
         //Fire move
         case(3):
         BurstEnd.play()
+        playEnergyEffect();
         return 240
         //Lighting move
     }
@@ -83,17 +92,52 @@ function DunbanMoves(){
         case(1):
        
         soaringTempets.play();
+        playSlashEffect();
         return 300
         case(2):
         
         StealStrike.play()
+        playPunchEffect();
         return 400
         case(3):
         
         WorldlySlash.play();
+        playSlashEffect();
         return 500
 
     }
     DunbanMiss.play()
     return 0
+}
+
+function playPunchEffect(){
+    punchEffect.style.display = "inline"
+    setTimeout(function(){
+    punchEffect.style.display = "none"
+
+    },1000)
+}
+function playSlashEffect(){
+    slashEffect.style.display = "inline"
+    setTimeout(function(){
+        slashEffect.style.display = "none"
+        },1000)
+}
+function playFireEffect(){
+    fireEffect.style.display = "inline"
+    setTimeout(function(){
+        fireEffect.style.display = "none"
+    },1500)
+}
+function playLightningEffect(){
+    lightningEffect.style.display = "inline"
+    setTimeout(function(){
+        lightningEffect.style.display= "none"
+    },1500)
+}
+function playEnergyEffect(){
+    energyEffect.style.display = "inline"
+    setTimeout(function(){
+        energyEffect.style.display = "none"
+    },2000)
 }

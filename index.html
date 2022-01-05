@@ -7,8 +7,18 @@
 </head>
 <body>
 <header>
-    
-    <p> Credits</p>
+    <ul class="headerList">
+        <li>
+            Contact
+        </li>
+        <li>
+            Credits
+        </li>
+    </ul>
+        
+
+   
+   
 </header>
 <div class="MainGame">
     <div class="Shop">
@@ -39,19 +49,20 @@
        
     </div>
     <div class = "Effects">
-        <img src = "effects/fire-effect.gif" id = "fire" style="margin-left: 180px; margin-top: 90px; display: none;">
+        <img src = "effects/fire-effect.gif" id = "fire" style="margin-left: 120px; margin-top: 80px;
+        height: 300px; display: none;">
     </div>
     <div class = "Effects">
-        <img src = "effects/Punch-effect.gif" id = "punch" style="margin-left: 120px; margin-top: 50px; display: none;">
+        <img src = "effects/Punch-effect.gif" id = "punch" style="margin-left: 120px; margin-top: 50px;
+        height: 300px; display: none;">
        
     </div>
     <div class = "Effects">
-        <img src = "effects/slash.gif" id = "slash" style="margin-left: 160px; margin-top:60px; display: none;">
+        <img src = "effects/slash.gif" id = "slash" style="margin-left: 70px; margin-top:20px; height: 400px; display: none;">
     </div>
-    
-    
-   
-    
+    <div class = "Effects">
+        <img src = "effects/EnergyBlast.gif" id = "energy" style=" margin-left:-120px; margin-top: -20px; height: 500px; display: none;">
+    </div>
   
 </div>
 </body>
@@ -65,7 +76,7 @@
     var reynPointEle = document.getElementById("reynPoints")
     var meliaPoints = 200;
     var meliaPointEle = document.getElementById("meliaPoints")
-    var dunbanPoints = 400;
+    var dunbanPoints =400;
     var dunbanPointsEle = document.getElementById("dunbanPoints")
     var score = 0;
     var cooldown = 20;
@@ -76,31 +87,33 @@
     var dunbanSound = new Sound("sounds/DunbanEntrance.wav")
     var meliaSound = new Sound("sounds/MeliaEntrance.wav")
     var ReynCooldown = 5000
-    var MeliaCooldown = 50000
-    var DunbanCooldown = 80000
+    var ReynCooldownDisp = ReynCooldown/1000
+    var MeliaCooldown = 5000
+    var MeliaCooldownDisp = MeliaCooldown/1000
+    var DunbanCooldown = 5000
+    var DunbanCooldownDisp = DunbanCooldown/1000
     var backgroundMusic= new Sound("sounds/background.mp3")
     var enemyHit = new Sound("sounds/EnemyHit.mp3")
     var fireEffect = document.getElementById("fire");
     var lightningEffect = document.getElementById("lightning")
     var punchEffect = document.getElementById("punch")
     var slashEffect = document.getElementById("slash")
-    setInterval(DunbanAttack,DunbanCooldown);
-    setInterval(MeliaAttack, MeliaCooldown);
-    setInterval(ReynAttack, ReynCooldown);
-    
+    var energyEffect = document.getElementById("energy")
+
     function ReynAttack(){
         if (Reyn_Bought == true){
-           
            UpdateScore(reynMoves())
-           punchEffect.style.display = "inline"
-           setTimeout(function(){
-           punchEffect.style.display = "none"
-
-           },2000)
-          
        }
+    }
+    function ReynTimer(){
+        reynPointEle.innerHTML = ReynCooldownDisp
+        ReynCooldownDisp -=1
+        if(ReynCooldownDisp<=0){
+            ReynCooldownDisp = ReynCooldown/1000
+        }
 
     }
+    
     function MeliaAttack(){
         if(Melia_Bought == true){
            
@@ -108,12 +121,26 @@
        }
 
     }
+    function MeliaTimer(){
+        meliaPointEle.innerHTML = MeliaCooldownDisp
+        MeliaCooldownDisp -=1
+        if(MeliaCooldownDisp<=0){
+            MeliaCooldownDisp = MeliaCooldown/1000
+        }
+    }
     function DunbanAttack(){
        
         if(Dunban_Bought==true){
             UpdateScore(DunbanMoves())
         }
-    } 
+    }
+    function DunbanTimer(){
+        dunbanPointsEle.innerHTML = DunbanCooldownDisp
+        DunbanCooldownDisp -=1
+        if(DunbanCooldownDisp<=0){
+            DunbanCooldownDisp = DunbanCooldown/1000
+        }
+    }
     function PurchaseCharacter(chr){
         if(chr.id == "Reyn"){
             if(score>= reynPoints){
@@ -121,7 +148,9 @@
                 console.log("bought")
                 reynSound.play();
                 UpdateScore(reynPoints*-1)
-                reynPointEle.innerHTML = "xxx"
+                setInterval(ReynAttack, ReynCooldown);
+                setInterval(ReynTimer,1000);
+               
             }
             else{
                 alert("Not enough points")
@@ -132,8 +161,8 @@
                 Melia_Bought = true;
                 UpdateScore(meliaPoints*-1)
                 meliaSound.play();
-                
-                meliaPointEle.innerHTML= "xxx"
+                setInterval(MeliaAttack, MeliaCooldown);
+                setInterval(MeliaTimer,1000);
             }
             else{
                 alert("Not enough points")
@@ -144,14 +173,13 @@
                 Dunban_Bought = true;
                 dunbanSound.play();
                 UpdateScore(dunbanPoints*-1)
-                dunbanPointsEle.innerHTML = "xxx" // could replace this with a cooldown timer
+                setInterval(DunbanAttack,DunbanCooldown);
+                setInterval(DunbanTimer,1000);
             }
             else{
                 alert("Not enough points")
             }
-           
         }
-        
     }
     function RegisterHit(){
         backgroundMusic.play();
@@ -163,7 +191,6 @@
         }
         UpdateScore(1)
         enemyHit.play();
-        
     }
     function UpdateScore(points){
         score+= points

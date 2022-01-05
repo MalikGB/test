@@ -1,5 +1,18 @@
 header{
     background-color: white;
+    text-align: right;
+    list-style-type:none ;
+    white-space: nowrap;
+    display: inline;
+}
+.headerList{
+    width: 100%;
+    white-space: inherit;
+    display: inline;
+    tab-size: 2;
+    list-style-type: none;
+    margin: 0;
+    padding:0;
 }
 .MainGame{
 position: relative;
