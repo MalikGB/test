@@ -39,8 +39,7 @@ function getRandomInt(max){
 }
 
 function reynMoves(){
-   // attack = getRandomInt(4);
-   attack =3
+   attack = getRandomInt(4);
     switch(attack){
         case(0):
        
