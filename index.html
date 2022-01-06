@@ -24,11 +24,11 @@
     <div class="Shop">
         <div>
             <img src = "images/Dunban.png" class="Character" id="Dunban" onclick="PurchaseCharacter(this)">
-            <p id = "dunbanPoints"> 400 Points</p>
+            <p id = "dunbanPoints"> 2000 Points</p>
         </div>
         <div>
             <img src = "images/Melia.png" class="Character" id="Melia" onclick="PurchaseCharacter(this)">
-            <p id = "meliaPoints"> 200 Points</p>
+            <p id = "meliaPoints"> 1000 Points</p>
             
         </div>
         <div>
@@ -42,6 +42,7 @@
     <img src="images/Colony9Background.jpg" width="100%"; height = "80%">
     <div class="Content">
         <img src="images/mechon1.png" id="Enemy"; onclick="RegisterHit()" width="190%">
+        <p class="Miss" id="miss" style="display: none;">Miss</p>
         
     </div>
     <div class = "Effects">
@@ -64,8 +65,8 @@
         <img src = "effects/EnergyBlast.gif" id = "energy" style=" margin-left:-120px; margin-top: -20px; height: 500px; display: none;">
     </div>
     <div class="Sound">
-        <img src = "images/Enabled.png" id = "SoundE" onclick="ToggleSound()">
-        <img src = "images/disabled.png" id = "SoundD" style="display: none;" onclick="ToggleSound()">
+        <img src = "images/Enabled.png" id = "SoundE" onclick="ToggleSound()" style="display:none">
+        <img src = "images/disabled.png" id = "SoundD" style="display: inline;" onclick="ToggleSound()">
     </div>
 </div>
 </body>
@@ -80,9 +81,9 @@
     var dunban = document.getElementById("Dunban")
     var reynPoints = 50;
     var reynPointEle = document.getElementById("reynPoints")
-    var meliaPoints = 200;
+    var meliaPoints = 1000;
     var meliaPointEle = document.getElementById("meliaPoints")
-    var dunbanPoints =400;
+    var dunbanPoints =2000;
     var dunbanPointsEle = document.getElementById("dunbanPoints")
     var score = 0;
     var cooldown = 20;
@@ -94,9 +95,9 @@
     var meliaSound = new Sound("sounds/MeliaEntrance.wav")
     var ReynCooldown = 5000
     var ReynCooldownDisp = ReynCooldown/1000
-    var MeliaCooldown = 5000
+    var MeliaCooldown = 8000
     var MeliaCooldownDisp = MeliaCooldown/1000
-    var DunbanCooldown = 5000
+    var DunbanCooldown = 10000
     var DunbanCooldownDisp = DunbanCooldown/1000
     var backgroundMusic= new Sound("sounds/background.mp3")
     var enemyHit = new Sound("sounds/EnemyHit.mp3")
@@ -105,10 +106,14 @@
     var punchEffect = document.getElementById("punch")
     var slashEffect = document.getElementById("slash")
     var energyEffect = document.getElementById("energy")
+    var missElement = document.getElementById("miss")
+    var removeClass;
+    var canRemove=false;
 
     function ReynAttack(){
         if (Reyn_Bought == true){
            UpdateScore(reynMoves())
+          
        }
     }
     function ReynTimer(){
@@ -124,6 +129,7 @@
         if(Melia_Bought == true){
            
            UpdateScore(MeliaMoves())
+           
        }
 
     }
@@ -138,6 +144,7 @@
        
         if(Dunban_Bought==true){
             UpdateScore(DunbanMoves())
+           
         }
     }
     function DunbanTimer(){
@@ -196,7 +203,8 @@
             enemy.className= 'HitAnimation';
         }
         UpdateScore(1)
-        enemyHit.play();
+      
+        
     }
     function UpdateScore(points){
         score+= points
@@ -217,6 +225,22 @@
             soundEIcon.style.display = "inline"
             soundDIcon.style.display = "none"
         }
+    }
+    function playMiss(){
+        missElement.style.display= "inline"
+        missElement.classList.add("MissAnimation")
+        removeClass= setInterval(removeMissClass,1600)
+
+    }
+    function removeMissClass(){
+        if(canRemove){
+            if(missElement.classList.contains("MissAnimation"))
+            missElement.style.display= "none"
+            missElement.classList.remove("MissAnimation")
+            clearInterval(removeClass)
+        }
+        canRemove=true
+        
     }
     
  </script>

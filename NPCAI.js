@@ -39,28 +39,32 @@ function getRandomInt(max){
 }
 
 function reynMoves(){
-    attack = getRandomInt(4);
-   
+   // attack = getRandomInt(4);
+   attack =3
     switch(attack){
         case(0):
        
         bone_upper.play();
+        enemyHit.play();
         playPunchEffect();
         return 50;
         case(1):
        
         shield_bash.play();
+        enemyHit.play();
         playPunchEffect();
         return 40;
         
         case(2):
         
         lariat.play();
+        enemyHit.play();
         playSlashEffect();
         return 20;
        
     }
     ReynMiss.play();
+    playMiss();
     return 0
 }
 
@@ -69,21 +73,25 @@ function MeliaMoves(){
     switch(attack){
         case(1):
         Flare.play()
+        enemyHit.play();
         playFireEffect()
         return 120
         //ice move
         case(2):
         Thunder.play()
+        enemyHit.play();
         playLightningEffect();
         return 80
         //Fire move
         case(3):
         BurstEnd.play()
+        enemyHit.play();
         playEnergyEffect();
         return 240
         //Lighting move
     }
     MeliaMiss.play();
+    playMiss();
     return 0;
 }
 function DunbanMoves(){
@@ -93,20 +101,25 @@ function DunbanMoves(){
        
         soaringTempets.play();
         playSlashEffect();
+        enemyHit.play();
         return 300
+
         case(2):
         
         StealStrike.play()
         playPunchEffect();
+        enemyHit.play();
         return 400
+
         case(3):
-        
         WorldlySlash.play();
         playSlashEffect();
+        enemyHit.play();
         return 500
 
     }
     DunbanMiss.play()
+    playMiss();
     return 0
 }
 
