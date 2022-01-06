@@ -18,6 +18,12 @@ header{
 position: relative;
 text-align: center;
 }
+.Sound{
+    position: absolute;
+    text-align: right;
+    top: 5%;
+    left: 90%;
+}
 .Content{
     text-align: center;
     position: absolute;
@@ -30,6 +36,7 @@ text-align: center;
     position: absolute;
     top:30%;
     left: 30%;
+    pointer-events: none; /* Makes the effects unclickable*/
 }
 
 .EffectAnimation{

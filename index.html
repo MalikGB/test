@@ -9,10 +9,10 @@
 <header>
     <ul class="headerList">
         <li>
-            Contact
+           <a href="contact.html">Contact</a> 
         </li>
         <li>
-            Credits
+           <a href="credits.html">Credits</a> 
         </li>
     </ul>
         
@@ -63,10 +63,16 @@
     <div class = "Effects">
         <img src = "effects/EnergyBlast.gif" id = "energy" style=" margin-left:-120px; margin-top: -20px; height: 500px; display: none;">
     </div>
-  
+    <div class="Sound">
+        <img src = "images/Enabled.png" id = "SoundE" onclick="ToggleSound()">
+        <img src = "images/disabled.png" id = "SoundD" style="display: none;" onclick="ToggleSound()">
+    </div>
 </div>
 </body>
 <script>
+    var soundStatus = 1 // 1 = enabled, 0 = disabled
+    var soundEIcon = document.getElementById("SoundE")
+    var soundDIcon = document.getElementById("SoundD")
     var enemy = document.getElementById("Enemy");
     var scoreElement = document.getElementById("Score")
     var reyn = document.getElementById("Reyn")
@@ -182,7 +188,7 @@
         }
     }
     function RegisterHit(){
-        backgroundMusic.play();
+        
         if(enemy.className == 'HitAnimation'){
             enemy.className= 'HitAnimationAlt'
         }
@@ -196,6 +202,21 @@
         score+= points
         scoreElement.innerHTML = "Score: "+ score;
 
+    }
+    function ToggleSound(){
+        if(soundStatus==1){
+            soundStatus=0
+            backgroundMusic.stop()
+            soundEIcon.style.display = "none"
+            soundDIcon.style.display = "inline"
+
+        }
+        else{
+            soundStatus=1
+            backgroundMusic.play()
+            soundEIcon.style.display = "inline"
+            soundDIcon.style.display = "none"
+        }
     }
     
  </script>
